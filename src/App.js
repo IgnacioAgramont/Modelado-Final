@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import './Button.css';
 const SimuladorCaja = () => {
   const [resultados, setResultados] = useState({
     cant_cli: 0,
@@ -15,24 +15,27 @@ const SimuladorCaja = () => {
     let TesperaTotal = 0; // Tiempo total de espera
     let cc = 0; // Contador de clientes
     const detallesClientes = []; // Almacena detalles de cada cliente
-
+  
     // Generar cantidad de clientes entre 900 y 950
     const cant_cli = Math.round(900 + (950 - 900) * Math.random());
-
+  
+    // Calcular intervalo constante entre llegadas
+    const intervaloLlegada = Math.floor((Tfinal - Tllegada) / cant_cli);
+  
     while (cc < cant_cli && Tllegada < Tfinal) {
       // Generar tiempo de servicio entre 2 y 12 minutos
       const rservicio = Math.random();
-      const Tservicio = (0 + rservicio * 1.8) * 60; // Tiempo de servicio en segundos
-
+      const Tservicio = (0 + rservicio * 0.5) * 60; // Tiempo de servicio en segundos
+  
       // Calcular tiempo de espera individual
       const espera = Tfinalizacion > Tllegada ? Tfinalizacion - Tllegada : 0;
-
+  
       // Sumar al tiempo total de espera
       TesperaTotal += espera;
-
+  
       // Actualizar la hora de finalización del servicio actual
       Tfinalizacion = Tllegada + espera + Tservicio;
-
+  
       // Guardar detalles del cliente actual
       detallesClientes.push({
         cliente: cc + 1,
@@ -41,20 +44,19 @@ const SimuladorCaja = () => {
         tiempoEspera: (espera / 60).toFixed(2), // En minutos
         horaFinalizacion: segundosAMinutos(Tfinalizacion),
       });
-
+  
       cc++;
-
+  
       // Calcular la próxima hora de llegada
-      const rllegada = Math.random();
-      Tllegada += Math.round(-((Tfinal / cant_cli) * Math.log(1 - rllegada)));
+      Tllegada += intervaloLlegada;
     }
-
+  
     // Calcular tiempo de espera promedio
     const Tesperapromedio = (TesperaTotal / 60) / cant_cli;
-
+  
     // Determinar si se necesita un nuevo cajero
     const NuevoCajero = Tesperapromedio > 3;
-
+  
     // Actualizar resultados
     setResultados({
       cant_cli,
@@ -71,8 +73,12 @@ const SimuladorCaja = () => {
 
   return (
     <div style={{ textAlign: 'center', marginTop: '20px' }}>
-      <h1>Simulador de Caja</h1>
-      <button onClick={iniciarSimulacion}>Iniciar Simulación</button>
+      <h1>Simulador Teleférico</h1>
+      <p>Esta simulación nos permite saber si es que se necesita un nuevo cajero o no en la estación roja del teleferico en la zona del cementerio.</p>
+      <p>La condición es que, si el tiempo de espera promedio supera los 3 minutos, se debe implementar un nuevo cajero.</p>
+      <button className="simulacion-btn" onClick={iniciarSimulacion}>
+      Iniciar Simulación
+      </button>
       <div style={{ marginTop: '20px' }}>
         <p><strong>Cantidad de Clientes:</strong> {resultados.cant_cli}</p>
         <p><strong>Tiempo de Espera Promedio:</strong> {resultados.Tesperapromedio} minutos</p>

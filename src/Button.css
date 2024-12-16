@@ -1,0 +1,34 @@
+/* Estilos para el botón */
+.simulacion-btn {
+    background-color: #4CAF50; /* Verde */
+    color: white; /* Texto en blanco */
+    font-size: 16px; /* Tamaño de fuente */
+    font-weight: bold; /* Texto en negrita */
+    padding: 12px 24px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 8px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de mano */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    transition: all 0.3s ease; /* Transición suave */
+  }
+  
+  /* Efecto hover (cuando el cursor pasa por encima) */
+  .simulacion-btn:hover {
+    background-color: #45a049; /* Verde más oscuro */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+    transform: translateY(-2px); /* Elevación */
+  }
+  
+  /* Efecto active (al hacer clic) */
+  .simulacion-btn:active {
+    background-color: #3e8e41; /* Verde aún más oscuro */
+    transform: translateY(1px); /* Botón baja ligeramente */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Sombra más sutil */
+  }
+  
+  /* Estilo focus (para accesibilidad) */
+  .simulacion-btn:focus {
+    outline: 3px solid #2d7d3d; /* Contorno verde oscuro */
+    outline-offset: 2px;
+  }
